@@ -1,8 +1,8 @@
-# Jamify!
+= Jamify!
 
-## Servers
+== Servers
 
-### Staging Server
+=== Staging Server
 http://jamify-staging.herokuapp.com
 
 
