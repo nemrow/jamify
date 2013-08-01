@@ -1,8 +1,8 @@
-== Jamify!
+# Jamify!
 
-== Servers
+## Servers
 
-== Staging Server: 
+### Staging Server
 http://jamify-staging.herokuapp.com
 
 
@@ -14,7 +14,7 @@ To migrate staging server:
 
   $ heroku run rake db:migrate --remote staging
 
-== Production Server:
+### Production Server
 http://jamify.herokuapp.com
 
 
