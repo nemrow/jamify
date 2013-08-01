@@ -1,5 +1,15 @@
 = Jamify!
 
+== Dev API testing
+
+**staging:**
+
+http://jamify-staging.herokuapp.com/dev
+
+**production:**
+
+http://jamify.herokuapp.com/dev
+
 == Servers
 
 === Staging Server
