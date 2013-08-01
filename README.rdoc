@@ -2,11 +2,11 @@
 
 == Dev API testing
 
-**staging:**
+*staging:*
 
 http://jamify-staging.herokuapp.com/dev
 
-**production:**
+*production:*
 
 http://jamify.herokuapp.com/dev
 
