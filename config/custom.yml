@@ -1,0 +1,8 @@
+development, test, production:
+  root_url: env["HTTP_HOST"]
+
+development:
+
+test:
+
+production:
