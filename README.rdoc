@@ -3,9 +3,17 @@
 == Servers
 
 == Staging Server: 
-http://morning-fortress-4390.herokuapp.com/
+http://jamify-staging.herokuapp.com<br><br>
 
-To push to staging server:
-$ git push staging master
-To migrate staging server:
-$ heroku run rake db:migrate --remote staging
+To push to staging server:<br>
+$ git push staging master<br>
+To migrate staging server:<br>
+$ heroku run rake db:migrate --remote staging<br><br>
+
+== Production Server:
+http://jamify.herokuapp.com
+
+To push to production server:
+$ git push production master
+To migrate production server:
+$ heroku run rake db:migrate --remote production
