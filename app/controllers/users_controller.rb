@@ -1,10 +1,25 @@
 class UsersController < ApplicationController
 	def create
-		user = User.create(params[:new_user])
+		user = User.new(params[:new_user])
 		if user.save
 			render json: {:response => true}
 		else
-			render json: {:response => response, :errors => 'could not save user to database'}
+			render json: {:errors => 'could not save user to database'}
+		end
+	end
+
+	def index
+		users = User.all.to_json
+		render json: users
+	end
+
+	def find
+		p params
+		user = User.find_by_email(params[:email])
+		if user
+			render json: user.to_json
+		else
+			render json: {:errors => 'no user with that email'}
 		end
 	end
 end

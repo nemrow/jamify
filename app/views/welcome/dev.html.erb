@@ -1,29 +1,71 @@
 <h1>Dev Center</h1>
 <h2>This is to test api calls</h2>
 
-<h3>New User</h3>
-<p>POST request to: <%= root_url %>api/users</p>
-<p>{"new_user"=>{"first_name"=>"Jordan", "last_name"=>"Nemrow", "email"=>"Nemrowj@gmail.com", "sc_id"=>"123456"}}</p>
-<form id="new_user">
-	<input type="text" name="new_user[first_name]" placeholder="first name">
-	<input type="text" name="new_user[last_name]" placeholder="last name">
-	<input type="text" name="new_user[email]" placeholder="email">
-	<input type="text" name="new_user[sc_id]" placeholder="soundcloud id">
-	<input type="submit" value="create new user">
-</form>
-<p>Response: <span class="new_user_response"></span></p>
-<p>if success: {'response'=>'true'}<p>
-<p>if fail: {'response'=>'false', 'errors'=>'reason rejected from server'}<p>
+<div class="api_test">
+	<h3>New User</h3>
+	<p>POST request to: <%= root_url %>api/users</p>
+	<p>{"new_user"=>{"first_name"=>"Jordan", "last_name"=>"Nemrow", "email"=>"Nemrowj@gmail.com", "sc_id"=>"123456"}}</p>
+	<form id="new_user">
+		<input type="text" name="new_user[first_name]" placeholder="first name">
+		<input type="text" name="new_user[last_name]" placeholder="last name">
+		<input type="text" name="new_user[email]" placeholder="email">
+		<input type="text" name="new_user[sc_id]" placeholder="soundcloud id">
+		<input type="submit" value="create new user">
+	</form>
 
-<script type="text/javascript">
-	$('#new_user').submit(function(e){
-		e.preventDefault();
-		$.ajax({
-        url: '<%= root_url %>api/users',
-        type: 'POST',
-        data : $('#new_user').serialize()
-    }).done(function(data){
-    	$('.new_user_response').text(data['response']);
-    });
-	});
-</script>
+	<script type="text/javascript">
+		$('#new_user').submit(function(e){
+			e.preventDefault();
+			$.ajax({
+	        url: '<%= root_url %>api/users',
+	        type: 'POST',
+	        data : $('#new_user').serialize()
+	    }).done(function(data){
+	    	console.log(data)
+	    });
+		});
+	</script>
+</div>
+
+<div class="api_test">
+	<h3>Get All Users</h3>
+	<p>GET request to: <%= root_url %>api/users</p>
+	<form class="get_all_users">
+		<input type="submit" value="get users">
+	</form>
+	<p>check console log to view output</p>
+
+	<script type="text/javascript">
+		$('.get_all_users').submit(function(e){
+			e.preventDefault();
+			$.ajax({
+				url: '<%= root_url %>api/users',
+        type: 'GET'
+			}).done(function(data){
+				console.log(data)
+			});
+		});
+	</script>
+</div>
+
+<div class="api_test">
+	<h3>Find User by Email</h3>
+	<p>GET request to: <%= root_url %>api/users/:email</p>
+	<form id="find_user_by_email">
+		<input type="text" name="email" placeholder="email">
+		<input type="submit" value="find user">
+	</form>
+
+	<script type="text/javascript">
+		$('#find_user_by_email').submit(function(e){
+			e.preventDefault();
+			var email = $("#find_user_by_email input[name=email]").val();
+			$.ajax({
+	        url: '<%= root_url %>api/users/'+email,
+	        type: 'GET'
+	    }).done(function(data){
+	    	console.log(data)
+	    });
+		});
+	</script>
+</div>
