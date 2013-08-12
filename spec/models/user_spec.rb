@@ -2,13 +2,16 @@ require 'spec_helper'
 
 describe User do
   before do
-    @user = User.create(:first_name => 'Jordan', :last_name => 'Nemrow', :email => 'nemrowj@gmail.com', :sc_id => 12345)
+    @user = FactoryGirl.create(:user)
   end
 
   it "should create a user" do
-    @user.first_name.should == 'Jordan'
+    @user.first_name.should == User.last.first_name
   end
 
   it { should have_many(:followings) }
   it { should have_many(:tracks) }
+  it { should have_many(:master_tracks) }
+  it { should have_many(:projects) }
+  it { should have_many(:mix_downs) }
 end

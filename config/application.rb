@@ -70,7 +70,7 @@ module Jamify
         g.javascripts = false
         g.view_specs = false
         g.helper_specs = false
-        g.controller_specs = false
+        g.controller_specs = true
         g.helper = false
         g.assets = false
     end

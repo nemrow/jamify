@@ -2,12 +2,12 @@ require 'spec_helper'
 
 describe Project do
   before do
-    @user = User.create(:first_name => 'Jordan', :last_name => 'Nemrow', :email => 'nemrowj@gmail.com', :sc_id => 12345)
-    @project = Project.create(:name => 'My Project')
-    @master_track = MasterTrack.create(:name => 'Master Track 1')
-    @genre = Genre.find_or_create_by_name('dog')
-    @track = Track.create(:name => 'My Track')
-    @mix_down = MixDown.create
+    @user = FactoryGirl.create(:user)
+    @project = FactoryGirl.create(:project)
+    @master_track = FactoryGirl.create(:master_track)
+    @genre = FactoryGirl.create(:genre)
+    @track = FactoryGirl.create(:track)
+    @mix_down = FactoryGirl.create(:mix_down)
   end
 
   it "should add user as creator" do 

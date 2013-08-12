@@ -3,12 +3,12 @@ require 'spec_helper'
 describe Track do
 
   before do
-    @track = Track.create(:name => 'My Track')
-    @instrument = Instrument.create(:name => 'Guitar')
+    @track = FactoryGirl.create(:track)
+    @instrument = FactoryGirl.create(:instrument)
   end
 
   it "should create a track" do 
-    @track.name.should == 'My Track'
+    @track.name.should == Track.last.name
   end
 
   it "should add instrument to track" do 

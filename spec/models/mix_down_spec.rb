@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe MixDown do
   before do
-    @mix_down = MixDown.create
-    @track = Track.create(:name => 'My Track')
+    @mix_down = FactoryGirl.create(:mix_down)
+    @track = FactoryGirl.create(:track)
   end
 
   it "should add track to a mix down" do

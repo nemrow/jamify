@@ -13,8 +13,7 @@ class UsersController < ApplicationController
 		render json: users
 	end
 
-	def find
-		p params
+	def show
 		user = User.find_by_email(params[:email])
 		if user
 			render json: user.to_json

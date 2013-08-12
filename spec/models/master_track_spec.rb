@@ -2,10 +2,13 @@ require 'spec_helper'
 
 describe MasterTrack do
   before do
-    @master_track = MasterTrack.create(:name => 'Master Track 1')
+    @master_track = FactoryGirl.create(:master_track)
   end
 
   it "should create a master_track" do 
-    @master_track.name.should == "Master Track 1"
+    @master_track.name.should == MasterTrack.last.name
   end
+
+  it { should belong_to(:user) }
+  it { should belong_to(:project) }
 end
