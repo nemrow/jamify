@@ -1,15 +1,12 @@
 require 'spec_helper'
 
 describe MixDown do
-  before do
-    @mix_down = FactoryGirl.create(:mix_down)
-    @track = FactoryGirl.create(:track)
-  end
+  let (:mix_down) { FactoryGirl.create(:mix_down) }
+  let (:track) { FactoryGirl.create(:track)}
 
   it "should add track to a mix down" do
-    track_count = @mix_down.tracks.count
-    @mix_down.tracks << @track
-    @mix_down.tracks.count.should == track_count + 1
+    mix_down.tracks << track
+    mix_down.tracks.count.should == 1
   end
 
   it { should belong_to(:user) }

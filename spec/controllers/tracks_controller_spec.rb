@@ -8,7 +8,7 @@ describe TracksController do
     before do
       post :create, :project_id => project.id, :user_id => user.id, 
         :track => {:name => 'My MixDown', :sc_id => 45224}
-        @response_hash = JSON.parse(response.body)
+      @response_hash = JSON.parse(response.body)
     end
 
     it "should create a track" do

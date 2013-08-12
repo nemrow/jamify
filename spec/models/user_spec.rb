@@ -1,12 +1,10 @@
 require 'spec_helper'
 
 describe User do
-  before do
-    @user = FactoryGirl.create(:user)
-  end
+  let (:user) { FactoryGirl.create(:user) }
 
   it "should create a user" do
-    @user.first_name.should == User.last.first_name
+    user.first_name.should == User.last.first_name
   end
 
   it { should have_many(:followings) }

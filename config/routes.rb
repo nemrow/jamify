@@ -4,6 +4,7 @@ Jamify::Application.routes.draw do
   scope '/api' do
     resources :users, :only => [:index, :create] do
       resources :projects, :only => [:create]
+      resources :followings, :only => [:create]
     end
 
     # the constraints allow the email to include a dot
@@ -13,6 +14,10 @@ Jamify::Application.routes.draw do
       resources :master_tracks, :only => [:create]
       resources :mix_downs, :only => [:create]
       resources :tracks, :only => [:create]
+    end
+
+    resources :tracks, :only => :none do
+      resources :instruments, :only => [:create]
     end
   end
 end
