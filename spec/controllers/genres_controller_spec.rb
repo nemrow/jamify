@@ -8,6 +8,11 @@ describe GenresController do
   context "when post sent to /api/projects/:project_id/genres for an existing genre" do
     before do
       post :create, :project_id => project.id, :genre => {:name => genre_1.name}
+      @response_hash = JSON.parse(response.body)
+    end
+
+    it "should respond with {:response => true}" do
+      @response_hash['response'].should == true
     end
 
     it "add a genre association table" do

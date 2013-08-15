@@ -2,7 +2,7 @@ class UsersController < ApplicationController
 	def create
 		user = User.new(params[:new_user])
 		if user.save
-			render json: {:response => true}
+			render json: {:response => true, :user_id => user.id}
 		else
 			render json: {:errors => 'could not save user to database'}
 		end

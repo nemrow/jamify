@@ -8,6 +8,11 @@ describe UsersController do
       @result_hash = JSON.parse(response.body)
     end
 
+    it "should responde with {:response => true, :user_id => id}" do
+      @result_hash['response'].should == true
+      @result_hash['user_id'].should be_a_kind_of(Fixnum)
+    end
+
     it "adds a new user to database" do
       response.should be_ok
       User.count.should == 1

@@ -16,6 +16,11 @@ describe MixDownsController do
       @response_hash = JSON.parse(response.body)
     end
 
+    it "should respond with {:response => true, mix_down_id => id}" do
+      @response_hash['response'].should == true
+      @response_hash['mix_down_id'].should be_a_kind_of(Fixnum)
+    end
+
     it "should create a new mix_down" do
       response.should be_ok
       @response_hash['response'].should == true

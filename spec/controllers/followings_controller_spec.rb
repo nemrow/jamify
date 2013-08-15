@@ -7,6 +7,7 @@ describe FollowingsController do
 
     before do
       post :create, :user_id => user.id, :following_id => user_2.id
+      @response_hash = JSON.parse(response.body)
     end
 
     it "should add a following row" do
@@ -15,6 +16,10 @@ describe FollowingsController do
 
     it "should assign user_2 to user's followings" do
       user.followings.last.should == user_2
+    end
+
+    it "should respond wth {:response => true}" do
+      @response_hash['response'].should == true 
     end
   end
 end

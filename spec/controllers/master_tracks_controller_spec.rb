@@ -10,6 +10,11 @@ describe MasterTracksController do
       @response_hash = JSON.parse(response.body)
     end
 
+    it "should respond with {:response => true, :master_track_id => id}" do
+      @response_hash['response'].should == true
+      @response_hash['master_track_id'].should be_a_kind_of(Fixnum)
+    end
+
     it "should create a master_track" do
       response.should be_ok
       MasterTrack.count.should == 1

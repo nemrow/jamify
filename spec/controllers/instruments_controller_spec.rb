@@ -10,6 +10,10 @@ describe InstrumentsController do
       @response_hash = JSON.parse(response.body)
     end
 
+    it "should response with {:response => true}" do
+      @response_hash['response'].should == true
+    end
+
     it "should find the instrument and add it to this project" do
       track.instruments.last.name.should == 'Guitar'
     end
