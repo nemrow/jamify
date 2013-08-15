@@ -8,7 +8,6 @@ Jamify::Application.routes.draw do
     end
 
     # the constraints allow the email to include a dot
-    get '/users/:email', to: 'users#show', :constraints => { :email => /.*/ }
     resources :projects, :except => :create do
       resources :genres, :only => [:create]
       resources :master_tracks, :only => [:create]
@@ -19,5 +18,7 @@ Jamify::Application.routes.draw do
     resources :tracks, :only => :none do
       resources :instruments, :only => [:create]
     end
+    get '/users/email/:email', :to => 'users#show', :constraints => { :email => /.*/ }
+    get '/users/id/:user_id', :to => 'users#show'
   end
 end

@@ -4,7 +4,7 @@ class UsersController < ApplicationController
 		if user.save
 			render json: {:response => true, :user_id => user.id}
 		else
-			render json: {:errors => 'could not save user to database'}
+			render json: {:response => false}
 		end
 	end
 
@@ -14,11 +14,12 @@ class UsersController < ApplicationController
 	end
 
 	def show
-		user = User.find_by_email(params[:email])
+		user = User.find_by_email(params[:email]) if params[:email]
+		user = User.find(params[:user_id]) if params[:user_id]
 		if user
-			render json: user.to_json
+			render json: {:response => true, :user => user}
 		else
-			render json: {:errors => 'no user with that email'}
+			render json: {:response => false}
 		end
 	end
 end

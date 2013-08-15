@@ -33,7 +33,7 @@ describe UsersController do
     end
   end
 
-  context "when get request sent to /api/users/:email" do
+  context "when get request sent to /api/users/email/:email" do
     let (:user) { FactoryGirl.create(:user) }
 
     before do 
@@ -41,9 +41,30 @@ describe UsersController do
       @result_hash = JSON.parse(response.body)
     end
 
+    it "should return the response true" do
+      @result_hash['response'].should == true
+    end
+
     it "return the user associated to that email" do
-      response.should be_success
-      @result_hash['first_name'].should == user.first_name
+      @result_hash['user']['id'].should == user.id
+    end
+  end
+
+  context "when get request sent to /api/users/id/:user_id" do
+    let (:user) { FactoryGirl.create(:user) }
+
+    before do 
+      get :show, {:user_id => user.id}
+      @result_hash = JSON.parse(response.body)
+    end
+
+    it "should respond with true" do 
+      @result_hash['response'].should == true
+    end
+
+    it "return the user associated to that email" do
+      p @result_hash
+      @result_hash['user']['id'].should == user.id
     end
   end
 end
