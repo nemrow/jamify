@@ -6,8 +6,8 @@ class MixDown < ActiveRecord::Base
   has_many :tracks, :through => :mix_down_tracks
   has_many :mix_down_tracks
 
-   def add_bulk_tracks(track_array)
-    track_array.each do |track|
+  def add_bulk_tracks(track_array)
+    track_array.split(',').each do |track|
       self.tracks << Track.find(track)
     end
   end

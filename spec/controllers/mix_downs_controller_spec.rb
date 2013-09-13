@@ -12,7 +12,7 @@ describe MixDownsController do
     before do
       post :create, :project_id => project.id, :user_id => user.id, 
         :mix_down => {:name => 'My MixDown', :sc_id => 45224},
-        :tracks => [track_1.id, track_2.id, track_3.id]
+        :tracks => "#{track_1.id}, #{track_2.id}, #{track_3.id}"
       @response_hash = JSON.parse(response.body)
     end
 
