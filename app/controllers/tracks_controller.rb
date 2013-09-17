@@ -8,7 +8,16 @@ class TracksController < ApplicationController
       project.tracks << track
       render :json => {:response => true, :track_id => track.id}
     else
-      render :json => {:response => false}
+      render :json => {:response => false, :reason => 'could not save new track'}
+    end
+  end
+
+  def show
+    track = Track.find_by_sc_id(params[:track_sc_id])
+    if track
+      render :json => {:response => true, :track => track}
+    else
+      render :json  => {:response => false, :reason => "Could not find user with that soundcloud id"}
     end
   end
 end

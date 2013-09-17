@@ -20,5 +20,8 @@ Jamify::Application.routes.draw do
     end
     get '/users/email/:email', :to => 'users#show', :constraints => { :email => /.*/ }
     get '/users/id/:user_id', :to => 'users#show'
+    get '/users/sc_id/:sc_id', :to => 'users#show'
+    get '/feed', :to => 'mix_downs#index'
+    get '/tracks/:track_sc_id', :to => 'tracks#show'
   end
 end

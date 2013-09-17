@@ -16,6 +16,7 @@ class UsersController < ApplicationController
 	def show
 		user = User.find_by_email(params[:email]) if params[:email]
 		user = User.find(params[:user_id]) if params[:user_id]
+		user = User.find_by_sc_id(params[:sc_id]) if params[:sc_id]
 		if user
 			render json: {:response => true, :user => user}
 		else

@@ -28,4 +28,15 @@ describe TracksController do
       project.tracks.last.id.should == @response_hash['track_id']
     end
   end
+
+  context "When get is sent to /api/tracks/:track_sc_id" do
+    before :each do 
+      @track = FactoryGirl.create(:track)
+    end
+    it "should return the that specific track" do
+      get :show, :track_sc_id => @track.sc_id
+      response_hash = JSON.parse(response.body)
+      response_hash['track']['id'].should == @track.id
+    end
+  end
 end
