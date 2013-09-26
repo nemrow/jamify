@@ -17,7 +17,7 @@ class MixDownsController < ApplicationController
     if params['instrument']
       json_hash = {}
       json_hash[:response] = 'instrument'
-      json_hash[:mix_downs] = get_mix_downs_by_instrument(params[:instrument], params[:quantity] || 10)
+      json_hash[:mix_downs] = MixDown.get_mix_downs_by_instrument(params[:instrument], params[:quantity] || 10)
       render :json => json_hash
     elsif params[:genre]
       # duplicate instruments code but for genre
