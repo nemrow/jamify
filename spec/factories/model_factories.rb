@@ -33,6 +33,7 @@ FactoryGirl.define do
     sequence :sc_id do |n|
       "#{Random.rand(100000.999999)}#{n}"
     end
+    description Faker::Company.catch_phrase
   end
 
   factory :genre do

@@ -46,8 +46,9 @@ ActiveRecord::Schema.define(:version => 20130810223910) do
     t.integer  "user_id"
     t.integer  "project_id"
     t.integer  "sc_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.text     "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "project_genres", :force => true do |t|

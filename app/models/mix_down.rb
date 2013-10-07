@@ -1,5 +1,5 @@
 class MixDown < ActiveRecord::Base
-  attr_accessible :name, :user_id, :project_id, :sc_id
+  attr_accessible :name, :user_id, :project_id, :sc_id, :description
 
   belongs_to :user
   belongs_to :project
@@ -13,27 +13,19 @@ class MixDown < ActiveRecord::Base
   end
 
   def self.get_mix_downs_by_instrument(instrument, limit)
-    full_mix_down_array = []
     mix_down_ids = MixDown.grab_by_instrument(instrument, limit)
-    mix_down_ids.each do |mix_down|
-      this_mix_down_hash = {}
-      this_mix_down_hash['mix_down_sc_id'] = mix_down.sc_id
-      this_mix_down_hash['user_sc_id'] = User.find(mix_down.user_id).sc_id
-      this_mix_down_hash[:tracks] = mix_down.tracks.map {|track| track}
-      full_mix_down_array << this_mix_down_hash
+    self.find(mix_down_ids.map{ |mix_down| mix_down.id }).map do |mix_down|
+      tracks = mix_down.tracks.map {|track| track}
+      user = mix_down.user
+      mix_down.attributes.merge({:tracks => tracks, :user => user})
     end
-    full_mix_down_array
   end
 
   def self.grab_top(num)
-    full_mix_down_array = []
-    self.order("created_at DESC").limit(num).each do |mix_down|
-      this_mix_down_hash = {}
-      this_mix_down_hash[:mix_down_sc_id] = mix_down.sc_id
-      this_mix_down_hash[:tracks] = mix_down.tracks.map {|track| track}
-      full_mix_down_array << this_mix_down_hash
+    self.order("created_at DESC").limit(num).map do |mix_down|
+      tracks = mix_down.tracks.map {|track| track}
+      mix_down.attributes.merge({:tracks => tracks})
     end
-    full_mix_down_array
   end
 
   def self.grab_by_instrument(instrument, limit)
