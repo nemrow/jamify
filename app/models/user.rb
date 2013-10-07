@@ -10,4 +10,12 @@ class User < ActiveRecord::Base
   validates :email, uniqueness: true
   validates :first_name, :last_name, presence: true
   validates :sc_id, presence: true, numericality: true
+
+  def get_users_followings
+    self.followings
+  end
+
+  def get_users_followed_by
+    User.all.select{ |user| user.followings.include?(self) }
+  end
 end

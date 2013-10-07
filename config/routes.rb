@@ -23,5 +23,7 @@ Jamify::Application.routes.draw do
     get '/users/sc_id/:sc_id', :to => 'users#show'
     get '/feed', :to => 'mix_downs#index'
     get '/tracks/:track_sc_id', :to => 'tracks#show'
+    get 'users/user_sc_id/follows', :to => 'followings#follows'
+    get 'users/user_sc_id/followed_by', :to => 'followings#followed_by'
   end
 end

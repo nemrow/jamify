@@ -9,4 +9,14 @@ class FollowingsController < ApplicationController
       render :json => {:response => false}
     end
   end
+
+  def follows
+    user = User.find_by_sc_id(params[:user_sc_id])
+    render :json => {:users => user.get_users_followings}
+  end
+
+  def followed_by
+    user = User.find_by_sc_id(params[:user_sc_id])
+    render :json => {:users => user.get_users_followed_by}
+  end
 end
