@@ -7,5 +7,5 @@ class Project < ActiveRecord::Base
   has_many :genres, :through => :project_genres
   has_many :project_genres
   has_many :tracks
-
+  has_many :likes, :as => :likeable
 end
