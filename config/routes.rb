@@ -11,8 +11,11 @@ Jamify::Application.routes.draw do
     resources :projects, :except => :create do
       resources :genres, :only => [:create]
       resources :master_tracks, :only => [:create]
-      resources :mix_downs, :only => [:create]
+      resources :mix_downs, :only => [:create] do
+        # resources :likes, :only => [:create, :destroy, :index]
+      end
       resources :tracks, :only => [:create]
+      # resources :likes, :only => [:create, :destroy, :index]
     end
 
     resources :tracks, :only => :none do
@@ -23,7 +26,11 @@ Jamify::Application.routes.draw do
     get '/users/sc_id/:sc_id', :to => 'users#show'
     get '/feed', :to => 'mix_downs#index'
     get '/tracks/:track_sc_id', :to => 'tracks#show'
-    get 'users/user_sc_id/follows', :to => 'followings#follows'
-    get 'users/user_sc_id/followed_by', :to => 'followings#followed_by'
+    get '/users/user_sc_id/follows', :to => 'followings#follows'
+    get '/users/user_sc_id/followed_by', :to => 'followings#followed_by'
+    get '/likes/type/:likeable_type/id/:likeable_id', :to => 'likes#index'
+    get '/likes/users/:user_sc_id/type/:likeable_type', :to => 'likes#index'
+    post '/likes/type/:likeable_type/id/:likeable_id', :to => 'likes#create'
+    delete '/likes/id/:like_id', :to => 'likes#destroy'
   end
 end

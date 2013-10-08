@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   has_many :mix_downs
   has_many :tracks
   has_many :projects, :foreign_key => 'creator_id'
+  has_many :likes
   
   validates :email, uniqueness: true
   validates :first_name, :last_name, presence: true
