@@ -12,4 +12,5 @@ describe MixDown do
   it { should belong_to(:user) }
   it { should belong_to(:project) }
   it { should have_many(:tracks) }
+  it { should have_many(:comments) }
 end

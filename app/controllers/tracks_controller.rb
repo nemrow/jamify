@@ -15,7 +15,7 @@ class TracksController < ApplicationController
   def show
     track = Track.find_by_sc_id(params[:track_sc_id])
     if track
-      render :json => {:response => true, :track => track}
+      render :json => {:response => true, :track => track.with_associations}
     else
       render :json  => {:response => false, :reason => "Could not find user with that soundcloud id"}
     end

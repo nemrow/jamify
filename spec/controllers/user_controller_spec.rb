@@ -70,8 +70,13 @@ describe UsersController do
   context "when get request sent to /api/users/id/:user_id" do
     let (:user) { FactoryGirl.create(:user) }
 
-    before do 
-      get :show, {:user_id => user.id}
+    before(:each) do
+      @user1 = FactoryGirl.create(:user)
+      @user2 = FactoryGirl.create(:user)
+      @user3 = FactoryGirl.create(:user)
+      @user3.followings << @user1
+      @user1.followings << @user2
+      get :show, {:user_id => @user1.id}
       @result_hash = JSON.parse(response.body)
     end
 
@@ -80,7 +85,12 @@ describe UsersController do
     end
 
     it "return the user associated to that email" do
-      @result_hash['user']['id'].should == user.id
+      @result_hash['user']['id'].should == @user1.id
+    end
+
+    it "should return followers and followings of this user" do
+      @result_hash['user']['follows'].count.should eq(1)
+      @result_hash['user']['followers'].count.should eq(1)
     end
   end
 end

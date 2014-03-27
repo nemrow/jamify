@@ -32,11 +32,15 @@ describe TracksController do
   context "When get is sent to /api/tracks/:track_sc_id" do
     before :each do 
       @track = FactoryGirl.create(:track)
+      @comment = FactoryGirl.create(:comment)
+      @track.comments << @comment
     end
+
     it "should return the that specific track" do
       get :show, :track_sc_id => @track.sc_id
       response_hash = JSON.parse(response.body)
       response_hash['track']['id'].should == @track.id
+      response_hash['track']['comments'].count.should eq(1)
     end
   end
 end

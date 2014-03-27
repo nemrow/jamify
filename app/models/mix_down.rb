@@ -6,6 +6,14 @@ class MixDown < ActiveRecord::Base
   has_many :tracks, :through => :mix_down_tracks
   has_many :mix_down_tracks
   has_many :likes, :as => :likeable
+  has_many :comments, :as => :commentable
+
+  def with_associations
+    attributes = {
+      :comments => self.comments
+    }
+    self.attributes.merge(attributes)
+  end
 
   def add_bulk_tracks(track_array)
     track_array.split(',').each do |track|
@@ -18,14 +26,16 @@ class MixDown < ActiveRecord::Base
     self.find(mix_down_ids.map{ |mix_down| mix_down.id }).map do |mix_down|
       tracks = mix_down.tracks.map {|track| track}
       user = mix_down.user
-      mix_down.attributes.merge({:tracks => tracks, :user => user})
+      comments = mix_down.comments
+      mix_down.attributes.merge({:tracks => tracks, :user => user, :comments => comments})
     end
   end
 
   def self.grab_top(num)
     self.order("created_at DESC").limit(num).map do |mix_down|
       tracks = mix_down.tracks.map {|track| track}
-      mix_down.attributes.merge({:tracks => tracks})
+      comments = mix_down.comments
+      mix_down.attributes.merge({:tracks => tracks, :comments => comments})
     end
   end
 

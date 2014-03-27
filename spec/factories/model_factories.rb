@@ -43,4 +43,8 @@ FactoryGirl.define do
   factory :instrument do
     name Faker::Lorem.word
   end
+
+  factory :comment do
+    content "This is a comment."
+  end
 end

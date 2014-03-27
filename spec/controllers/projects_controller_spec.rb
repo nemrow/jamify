@@ -1,4 +1,5 @@
 require 'spec_helper'
+require "debugger"
 
 describe ProjectsController do
   let (:user) { FactoryGirl.create(:user) }
@@ -31,6 +32,10 @@ describe ProjectsController do
       @project.master_track = FactoryGirl.create(:master_track)
       10.times do 
         track = FactoryGirl.create(:track)
+        4.times do
+          comment = FactoryGirl.create(:comment)
+          track.comments << comment
+        end
         @project.tracks << track
       end
       3.times do 
@@ -39,7 +44,15 @@ describe ProjectsController do
       end
       5.times do 
         mix_down = FactoryGirl.create(:mix_down)
+        4.times do
+          comment = FactoryGirl.create(:comment)
+          mix_down.comments << comment
+        end
         @project.mix_downs << mix_down
+      end
+      6.times do
+        comment = FactoryGirl.create(:comment)
+        @project.comments << comment
       end
       get :show, :id => @project.id
       @response_hash = JSON.parse(response.body)
@@ -51,6 +64,7 @@ describe ProjectsController do
 
     it "should return all tracks" do
       @response_hash['tracks'].count.should == 10
+      @response_hash['tracks'][0]['comments'].count.should eq(4)
     end
 
     it "should return all genres" do
@@ -59,6 +73,11 @@ describe ProjectsController do
 
     it "should return all mix_downs" do
       @response_hash['mix_downs'].count.should == 5
+      @response_hash['mix_downs'][0]['comments'].count.should eq(4)
+    end
+
+    it "should return all comments" do
+      @response_hash['comments'].count.should eq(6)
     end
   end
 end

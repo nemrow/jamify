@@ -26,4 +26,10 @@ class MixDownsController < ApplicationController
       render :json => json_hash
     end
   end
+
+  def users_mixdowns
+    user = User.find(params[:user_id])
+    mix_downs = user.mix_downs_with_associations
+    render :json => {:response => true, :mix_downs => mix_downs}
+  end
 end

@@ -14,10 +14,12 @@ class ProjectsController < ApplicationController
     project = Project.find(params[:id])
     json_hash = {}
     if project
+      json_hash[:master_track] = project.master_track
       json_hash[:response] = true
-      json_hash[:tracks] = project.tracks
+      json_hash[:tracks] = Project.tracks_with_associations(project)
       json_hash[:genres] = project.genres
-      json_hash[:mix_downs] = project.mix_downs
+      json_hash[:mix_downs] = Project.mix_downs_with_associations(project)
+      json_hash[:comments] = project.comments
       render :json => json_hash
     else
       json_hash[:response] = false

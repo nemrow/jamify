@@ -18,4 +18,5 @@ describe Track do
   it { should belong_to(:project) }
   it { should have_many(:instruments) }
   it { should have_many(:mix_downs) }
+  it { should have_many(:comments) }
 end

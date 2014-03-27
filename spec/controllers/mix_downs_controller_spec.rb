@@ -90,4 +90,25 @@ describe MixDownsController do
       end
     end
   end
+
+  context "when an api request is sent to  /api/users/:user_id/mix_downs" do
+    before(:each) do
+      @user = FactoryGirl.create(:user)
+      3.times do 
+        mix_down = FactoryGirl.create(:mix_down)
+        4.times do
+          comment = FactoryGirl.create(:comment)
+          mix_down.comments << comment
+        end
+        @user.mix_downs << mix_down
+      end
+    end
+
+    it "should return all the users mixdowns" do
+      get :users_mixdowns, :user_id => @user.id
+      response_hash = JSON.parse(response.body)
+      response_hash['response'].should eq(true)
+      response_hash['mix_downs'][0]['comments'].count.should eq(4)
+    end
+  end
 end

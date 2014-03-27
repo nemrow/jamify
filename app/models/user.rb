@@ -12,11 +12,23 @@ class User < ActiveRecord::Base
   validates :first_name, :last_name, presence: true
   validates :sc_id, presence: true, numericality: true
 
+  def with_associations
+    attributes = {
+      :follows => self.get_users_followings,
+      :followers => self.get_users_followed_by
+    }
+    self.attributes.merge(attributes)
+  end
+
   def get_users_followings
     self.followings
   end
 
   def get_users_followed_by
     User.all.select{ |user| user.followings.include?(self) }
+  end
+
+  def mix_downs_with_associations
+    self.mix_downs.map {|mix_down| mix_down.with_associations}
   end
 end

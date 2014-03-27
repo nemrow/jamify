@@ -37,4 +37,5 @@ describe Project do
   it { should have_one(:master_track) }
   it { should have_many(:genres) }
   it { should have_many(:tracks) }
+  it { should have_many(:comments) }
 end
