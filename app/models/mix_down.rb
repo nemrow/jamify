@@ -23,19 +23,35 @@ class MixDown < ActiveRecord::Base
 
   def self.get_mix_downs_by_instrument(instrument, limit)
     mix_down_ids = MixDown.grab_by_instrument(instrument, limit)
-    self.find(mix_down_ids.map{ |mix_down| mix_down.id }).map do |mix_down|
-      tracks = mix_down.tracks.map {|track| track}
-      user = mix_down.user
-      comments = mix_down.comments
-      mix_down.attributes.merge({:tracks => tracks, :user => user, :comments => comments})
+    mix_downs_sorted_by_ids(mix_down_ids).map do |mix_down|
+      mix_down.build_data_hash
+    end
+  end
+
+  def self.mix_downs_sorted_by_ids(mix_down_ids)
+    self.find(mix_down_ids.map{ |mix_down| mix_down.id }).sort_by{|mix_down| mix_down.updated_at}.reverse
+  end
+
+  def build_data_hash
+    self.attributes.merge(
+      {
+        :tracks => self.tracks.map {|track| track}, 
+        :user => self.user, 
+        :comments => self.comments,
+        :collaborators => self.collaborators
+      }
+    )
+  end
+
+  def collaborators
+    self.tracks.map do |track|
+      track.user
     end
   end
 
   def self.grab_top(num)
     self.order("created_at DESC").limit(num).map do |mix_down|
-      tracks = mix_down.tracks.map {|track| track}
-      comments = mix_down.comments
-      mix_down.attributes.merge({:tracks => tracks, :comments => comments})
+      mix_down.build_data_hash
     end
   end
 
