@@ -35,7 +35,7 @@ class MixDown < ActiveRecord::Base
   def build_data_hash
     self.attributes.merge(
       {
-        :tracks => self.tracks.map {|track| track}, 
+        :tracks => self.tracks.order("updated_at DESC").map {|track| track}, 
         :user => self.user, 
         :comments => self.comments,
         :collaborators => self.collaborators
