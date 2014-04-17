@@ -18,7 +18,7 @@ class Project < ActiveRecord::Base
 
   def self.mix_downs_with_associations(project)
     project.mix_downs.map do |mix_down|
-      mix_down.with_associations
+      mix_down.build_data_hash
     end
   end
 end

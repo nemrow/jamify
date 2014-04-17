@@ -8,13 +8,6 @@ class MixDown < ActiveRecord::Base
   has_many :likes, :as => :likeable
   has_many :comments, :as => :commentable
 
-  def with_associations
-    attributes = {
-      :comments => self.comments
-    }
-    self.attributes.merge(attributes)
-  end
-
   def add_bulk_tracks(track_array)
     track_array.split(',').each do |track|
       self.tracks << Track.find(track)

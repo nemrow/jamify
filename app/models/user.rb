@@ -29,6 +29,6 @@ class User < ActiveRecord::Base
   end
 
   def mix_downs_with_associations
-    self.mix_downs.map {|mix_down| mix_down.with_associations}
+    self.mix_downs.map {|mix_down| mix_down.build_data_hash}
   end
 end
