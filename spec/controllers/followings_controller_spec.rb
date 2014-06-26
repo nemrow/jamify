@@ -19,7 +19,7 @@ describe FollowingsController do
     end
 
     it "should respond wth {:response => true}" do
-      @response_hash['response'].should == true 
+      @response_hash['response'].should == true
     end
   end
 
@@ -27,7 +27,7 @@ describe FollowingsController do
     let (:user_3) { FactoryGirl.create(:user, :first_name => 'threegirl')}
     let (:user_4) { FactoryGirl.create(:user, :first_name => 'fourthgirl')}
 
-    before do 
+    before do
       user.followings << user_3
       user.followings << user_4
       user_4.followings << user_3

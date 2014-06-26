@@ -28,12 +28,25 @@ class MixDown < ActiveRecord::Base
   def build_data_hash
     self.attributes.merge(
       {
-        :tracks => self.tracks.order("updated_at DESC").map {|track| track}, 
-        :user => self.user, 
+        :tracks => self.tracks.order("updated_at DESC").map {|track| track},
+        :user => self.user,
         :comments => self.comments,
-        :collaborators => self.collaborators
+        :collaborators => self.collaborators,
+        :like_count => self.likes.count,
+        :instruments => MixDown.get_all_instruments_in_mix_down(self)
       }
     )
+  end
+
+  def self.get_all_instruments_in_mix_down(mix_down)
+    ActiveRecord::Base.connection.select_all("
+      select i.id from instruments i
+      join track_instruments ti on (ti.instrument_id = i.id)
+      join mix_down_tracks mdt on (mdt.track_id = ti.track_id)
+      where mdt.mix_down_id = #{mix_down.id}
+    ").map do |instrument_hash|
+      Instrument.find(instrument_hash['id'])
+    end
   end
 
   def collaborators

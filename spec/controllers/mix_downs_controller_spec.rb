@@ -8,9 +8,9 @@ describe MixDownsController do
   let (:track_1) { FactoryGirl.create(:track) }
   let (:track_2) { FactoryGirl.create(:track) }
   let (:track_3) { FactoryGirl.create(:track) }
-    
+
     before do
-      post :create, :project_id => project.id, :user_id => user.id, 
+      post :create, :project_id => project.id, :user_id => user.id,
         :mix_down => {:name => 'My MixDown', :sc_id => 45224},
         :tracks => "#{track_1.id}, #{track_2.id}, #{track_3.id}"
       @response_hash = JSON.parse(response.body)
@@ -49,7 +49,7 @@ describe MixDownsController do
         user = FactoryGirl.create(:user)
         mix_down = FactoryGirl.create(:mix_down)
         user.mix_downs << mix_down
-        5.times do 
+        5.times do
           track = FactoryGirl.create(:track)
           user.tracks << track
           track.instruments << genre_2
@@ -57,7 +57,7 @@ describe MixDownsController do
           mix_down.tracks << track
         end
       end
-      3.times do 
+      3.times do
         new_mix = FactoryGirl.create(:mix_down)
         user = FactoryGirl.create(:user)
         user.mix_downs << new_mix
@@ -74,6 +74,8 @@ describe MixDownsController do
       it "should return top 10 recent mix_downs" do
         get :index
         @response_hash = JSON.parse(response.body)
+        @response_hash["mix_downs"][0]["instruments"].count.should == 1
+        @response_hash["mix_downs"][0]["like_count"].should == 0
         @response_hash['mix_downs'].count.should == 10
       end
 
@@ -100,7 +102,7 @@ describe MixDownsController do
   context "when an api request is sent to  /api/users/:user_id/mix_downs" do
     before(:each) do
       @user = FactoryGirl.create(:user)
-      3.times do 
+      3.times do
         mix_down = FactoryGirl.create(:mix_down)
         4.times do
           comment = FactoryGirl.create(:comment)
