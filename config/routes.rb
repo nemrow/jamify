@@ -41,5 +41,6 @@ Jamify::Application.routes.draw do
     post '/likes/type/:likeable_type/id/:likeable_id', :to => 'likes#create'
     delete '/likes/id/:like_id', :to => 'likes#destroy'
     get 'users/:user_id/mix_downs', :to => 'mix_downs#users_mixdowns'
+    get 'search/:keywords', :to => 'search#search_all'
   end
 end
