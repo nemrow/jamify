@@ -1,6 +1,6 @@
 class SearchController < ApplicationController
   def search_all
-    mix_downs = Search.all_mix_downs_containing_keywords(params[:keywords], 25)
+    mix_downs = MixDownSearch.new(params[:keywords]).results
     render :json => {:response => true, :mix_downs => mix_downs}
   end
 end
