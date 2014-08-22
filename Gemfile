@@ -6,6 +6,7 @@ gem 'rails', '3.2.13'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'pg'
+gem "textacular"
 
 
 # Gems used only for assets and not required
@@ -20,7 +21,7 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
-group :development, :test do 
+group :development, :test do
 	gem 'rspec-rails'
   gem 'shoulda-matchers'
   gem "factory_girl_rails", "~> 4.0"
