@@ -1,5 +1,4 @@
 require 'spec_helper'
-require "debugger"
 
 describe Comment do
   before(:each) do

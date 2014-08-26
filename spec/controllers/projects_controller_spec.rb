@@ -1,5 +1,4 @@
 require 'spec_helper'
-require "debugger"
 
 describe ProjectsController do
   let (:user) { FactoryGirl.create(:user) }
