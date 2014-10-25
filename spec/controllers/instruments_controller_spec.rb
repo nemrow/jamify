@@ -5,7 +5,6 @@ describe InstrumentsController do
     let (:track) { FactoryGirl.create(:track) }
 
     before do
-      Instrument.create(:name => 'Guitar')
       post :create, :track_id => track.id, :instrument => {:name => 'Guitar'}
       @response_hash = JSON.parse(response.body)
     end
@@ -15,7 +14,7 @@ describe InstrumentsController do
     end
 
     it "should find the instrument and add it to this project" do
-      track.instruments.last.name.should == 'Guitar'
+      track.instruments.last.name.should == 'guitar'
     end
   end
 end
