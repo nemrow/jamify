@@ -44,6 +44,7 @@ class MixDown < ActiveRecord::Base
       join track_instruments ti on (ti.instrument_id = i.id)
       join mix_down_tracks mdt on (mdt.track_id = ti.track_id)
       where mdt.mix_down_id = #{mix_down.id}
+      order by ti.created_at desc
     ").map do |instrument_hash|
       Instrument.find(instrument_hash['id'])
     end
